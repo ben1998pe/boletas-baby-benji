@@ -9,7 +9,8 @@ import cloudinary.uploader
 cloudinary.config(
     cloud_name="djo3pubvc",  # ✅ El correcto
     api_key="111981522849654",
-    api_secret="PRlmu3nNEFk59lotK6iUd8yZog0")
+    api_secret="PRlmu3nNEFk59lotK6iUd8yZog0"
+)
 
 app = Flask(__name__)
 app.secret_key = 'clave_secreta'
@@ -30,6 +31,9 @@ def init_db():
             imagen TEXT
         )""")
 
+
+# ⚠️ Asegúrate de llamar init_db aquí para que se ejecute al arrancar el servidor
+init_db()
 
 # Login
 @app.route('/', methods=['GET', 'POST'])
