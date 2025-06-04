@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel - Boletas</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="panel-container">
+    <h2>Registro de Boletas</h2>
+    <form method="post" action="/registrar" enctype="multipart/form-data">
+      <input type="text" name="cliente" placeholder="Cliente" required>
+      <input type="date" name="fecha" required>
+      <select name="estado" required>
+        <option value="pendiente">Pendiente</option>
+        <option value="pagado">Pagado</option>
+      </select>
+      <input type="text" name="modelo" placeholder="Modelo" required>
+      <input type="number" name="cantidad" placeholder="Cantidad" required>
+      <input type="number" step="0.01" name="total" placeholder="Total S/" required>
+      <textarea name="notas" placeholder="Notas adicionales"></textarea>
+      <input type="file" name="imagen" accept="image/*">
+      <button type="submit">Guardar Boleta</button>
+    </form>
+    <h3>Boletas Registradas</h3>
+    <div class="boletas-lista">
+      {% for b in boletas %}
+        <div class="boleta">
+          <p><strong>{{ b[1] }}</strong> - {{ b[2] }} - {{ b[3] }} - {{ b[4] }} - {{ b[5] }} unidades - S/ {{ b[6] }}</p>
+          <p>{{ b[7] }}</p>
+          {% if b[8] %}
+            <img src="/static/uploads/{{ b[8] }}" width="100">
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <a href="/logout">Cerrar sesión</a>
+  </div>
+</body>
+</html>

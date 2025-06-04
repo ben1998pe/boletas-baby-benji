@@ -1,0 +1,44 @@
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+.login-container, .panel-container {
+  max-width: 480px;
+  margin: auto;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, select, textarea, button {
+  width: 100%;
+  margin: 0.3rem 0;
+  padding: 0.6rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #7865F3;
+  color: white;
+  font-weight: bold;
+}
+
+.boletas-lista {
+  margin-top: 1rem;
+}
+
+.boleta {
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 0;
+}
+
+img {
+  margin-top: 0.5rem;
+  border-radius: 5px;
+}
