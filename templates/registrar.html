@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Registrar Boleta</h2>
+<form action="{{ url_for('guardar_boleta') }}" method="post" enctype="multipart/form-data">
+  <input type="text" name="cliente" placeholder="Nombre del cliente" required />
+  <input type="date" name="fecha" required />
+
+  <select name="estado" required>
+    <option value="">Seleccionar estado</option>
+    <option value="pendiente">Pendiente</option>
+    <option value="pagado">Pagado</option>
+  </select>
+
+  <input type="text" name="modelo" placeholder="Modelo del producto" required />
+  <input type="number" name="cantidad" placeholder="Cantidad" required />
+  <input type="number" name="total" step="0.01" placeholder="Total a pagar S/" required />
+  <textarea name="notas" placeholder="Notas adicionales"></textarea>
+  <input type="file" name="imagen" id="imagen" accept="image/*" />
+
+  <button type="submit">Guardar boleta</button>
+</form>
+<script>
+document.getElementById('imagen').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const maxSizeMB = 2;
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("Solo se permiten imágenes JPEG, PNG o WEBP.");
+    e.target.value = "";
+    return;
+  }
+
+  if (file.size > maxSizeMB * 1024 * 1024) {
+    alert("La imagen es muy pesada. Máximo permitido: 2MB.");
+    e.target.value = "";
+  }
+});
+</script>
+{% endblock %}

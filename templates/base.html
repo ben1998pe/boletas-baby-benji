@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boletas Baby Benji</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    .submenu {
+      display: none;
+      padding-left: 1rem;
+    }
+    .submenu a {
+      font-size: 0.95rem;
+      color: #fff;
+    }
+    .modulo:hover .submenu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <button id="toggleSidebar" class="menu-btn">☰</button>
+
+    <!-- Fondo oscuro -->
+    <div id="overlay" class="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <h2>👶 Baby Benji</h2>
+      <nav>
+        <div class="modulo">
+          <label for="toggle-boletas">📂 Boletas</label>
+          <input type="checkbox" id="toggle-boletas" />
+          <div class="submenu">
+            <a href="{{ url_for('registrar_boleta') }}">Registrar</a>
+            <a href="{{ url_for('consultar_boletas') }}">Consultar</a>
+          </div>
+        </div>
+        <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="contenido">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  <script>
+    const btn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const enlaces = document.querySelectorAll('.sidebar a');
+
+    function abrirMenu() {
+      sidebar.classList.add('activo');
+      overlay.classList.add('visible');
+    }
+
+    function cerrarMenu() {
+      sidebar.classList.remove('activo');
+      overlay.classList.remove('visible');
+    }
+
+    btn.addEventListener('click', () => {
+      if (sidebar.classList.contains('activo')) {
+        cerrarMenu();
+      } else {
+        abrirMenu();
+      }
+    });
+
+    overlay.addEventListener('click', cerrarMenu);
+
+    // Cerrar menú si se hace clic en cualquier enlace
+    enlaces.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          cerrarMenu();
+        }
+      });
+    });
+  </script>
+
+
+</body>
+</html>

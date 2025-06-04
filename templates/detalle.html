@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Detalle de Boleta</h2>
+
+<div class="detalle-boleta">
+  <p><strong>Cliente:</strong> {{ boleta[1] }}</p>
+  <p><strong>Fecha:</strong> {{ boleta[2] }}</p>
+  <p><strong>Estado:</strong> {{ boleta[3] }}</p>
+  <p><strong>Modelo:</strong> {{ boleta[4] }}</p>
+  <p><strong>Cantidad:</strong> {{ boleta[5] }}</p>
+  <p><strong>Total:</strong> S/ {{ '%.2f' | format(boleta[6]) }}</p>
+  <p><strong>Notas:</strong> {{ boleta[7] or 'Sin notas' }}</p>
+
+  {% if boleta[8] %}
+    <img src="{{ boleta[8] }}" alt="Imagen" style="width: 100%; max-width: 300px; border-radius: 10px;">
+  {% else %}
+    <p>No se subió imagen.</p>
+  {% endif %}
+</div>
+
+<hr>
+
+<h3>Cambiar Estado</h3>
+<form action="{{ url_for('actualizar_estado', id=boleta[0]) }}" method="POST">
+  <select name="nuevo_estado" required>
+    <option value="Pendiente" {% if boleta[3] == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+    <option value="Pagado" {% if boleta[3] == 'Pagado' %}selected{% endif %}>Pagado</option>
+    <option value="Anulado" {% if boleta[3] == 'Anulado' %}selected{% endif %}>Anulado</option>
+  </select>
+  <button type="submit" style="margin-top: 0.8rem;">Actualizar estado</button>
+</form>
+
+<br>
+<a href="{{ url_for('consultar_boletas') }}" class="btn-volver">← Volver a lista</a>
+<form action="{{ url_for('eliminar_boleta', id=boleta[0]) }}" method="post" onsubmit="return confirm('¿Estás seguro de eliminar esta boleta?');">
+  <button type="submit" class="btn-eliminar">🗑️ Eliminar boleta</button>
+</form>
+
+{% endblock %}

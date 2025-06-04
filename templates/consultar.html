@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Consultar Boletas</h2>
+
+<!-- Filtros -->
+<!-- Filtros -->
+<form method="get" class="filtros-form">
+  <input type="text" name="cliente" placeholder="Filtrar por cliente" value="{{ request.args.get('cliente', '') }}"/>
+
+  <div style="display: flex; gap: 0.5rem;">
+    <input type="date" name="fecha_desde" value="{{ request.args.get('fecha_desde', '') }}" />
+    <input type="date" name="fecha_hasta" value="{{ request.args.get('fecha_hasta', '') }}" />
+  </div>
+
+  <select name="estado">
+    <option value="">Todos los estados</option>
+    <option value="Pendiente" {% if request.args.get('estado') == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+    <option value="Pagado" {% if request.args.get('estado') == 'Pagado' %}selected{% endif %}>Pagado</option>
+  </select>
+
+
+  <div class="filtros-botones">
+    <button type="submit" class="btn-filtrar">Aplicar filtros</button>
+    <a href="{{ url_for('consultar_boletas') }}" class="btn-limpiar">Limpiar</a>
+  </div>
+</form>
+
+
+<!-- Tabla -->
+<div class="tabla-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for boleta in boletas %}
+      <tr>
+        <td>{{ boleta[1] }}</td>
+        <td>{{ boleta[2] }}</td>
+        <td>{{ boleta[3] }}</td>
+        <td>{{ boleta[5] }}</td>
+        <td>S/ {{ boleta[6] }}</td>
+        <td>
+          <a href="{{ url_for('detalle_boleta', id=boleta[0]) }}" class="btn-ver">Ver</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

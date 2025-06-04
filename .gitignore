@@ -1,0 +1,6 @@
+# Ignorar base de datos
+boletas.db
+
+# Ignorar todo lo que se suba a uploads excepto logo.png
+static/uploads/*
+!static/uploads/logo.png
